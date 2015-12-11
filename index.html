@@ -182,6 +182,72 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-data-transfer" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/21/data-transfer/" class="article-date">
+  	<time datetime="2015-11-21T03:46:05.000Z" itemprop="datePublished">2015-11-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/21/data-transfer/">data transfer</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果</p>
+</blockquote>
+<ol>
+<li>mysql的innodb数据引擎能够存储的下1亿多条数据</li>
+<li>为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和业务确认，库存为0的数据可以不用初始化，一下子数据量较少到5000多万，同时将需要插入的sql字段确认，不必要的字段不处理</li>
+<li>为了避免实时库存的影响，先将oralce中的数据导入到mysql，5000多万数据的导入时间在1个多小时左右，工具使用navicate，注意navicate的版本为Navicat Premium，这个版本及支持mysql，也支持oracle，记得设置oci.dll</li>
+<li>语言的选择，由于我们的库存数据需要分表，分表依据为库存地code的MD5后hash取余数，所以直接使用sql实现难度较大，我选择通过编程实现，几种语言的对比在后面列出</li>
+<li>mongodb的插入速度实在惊人，把jvm的参数设置大一些后，每个线程可以插入20w,也就花费60秒左右</li>
+</ol>
+<blockquote>
+<p>4.1java:可以很轻松实现MD5以及hash取余，使用多线程操作（ExecutorService+Runnable），数据库操作使用jdbctemplate或mybatis，发现jdbctemplate性能稍微好些</p>
+<p>4.2python:可以很轻松实现MD5以及hash取余,使用executemany，但是executemany无法传入表名，因为我的表名是不确定的，如果表名确定的话，python的速度绝对超多java，同样插入5w条数据，python只要5s多，java需要50秒左右</p>
+<p>4.3nodejs:看起来快，实际并不快，nodejs是异步操作，提交插入请求后很快返回结果，但是插入动作还在慢慢的执行，5w条数据，nodejs需要200多秒</p>
+</blockquote>
+<p>最终数据顺利导入完成！选择了java+jdbctemplate</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-interviewer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

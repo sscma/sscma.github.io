@@ -3,30 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>first be interviewer | sscma</title>
+  <title>data transfer | sscma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="工作了4年，今天第一次当面试官，从今天开始，打算将一些事情记录下来。
+  <meta name="description" content="最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果
 
-原因很简单，第一次当面试官很不成功。
 
-今天在写程序，突然被老大叫去面试一个应届生。顿时感觉手忙脚乱，人事递给我简历，我立马回答说我先上个厕所。回来的时候，我拿着简历，顺便也拿了手机，想想还是别带手机了。就这样，手机摔到 地上了，还好，没摔坏。 在路上边走边看，到了面试的房间，看到了那个应届生。按照自己的面试经验，先让他做个自">
+mysql的innodb数据引擎能够存储的下1亿多条数据
+为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="first be interviewer">
-<meta property="og:url" content="http://yoursite.com/2015/11/20/interviewer/index.html">
+<meta property="og:title" content="data transfer">
+<meta property="og:url" content="http://yoursite.com/2015/11/21/data-transfer/index.html">
 <meta property="og:site_name" content="sscma">
-<meta property="og:description" content="工作了4年，今天第一次当面试官，从今天开始，打算将一些事情记录下来。
+<meta property="og:description" content="最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果
 
-原因很简单，第一次当面试官很不成功。
 
-今天在写程序，突然被老大叫去面试一个应届生。顿时感觉手忙脚乱，人事递给我简历，我立马回答说我先上个厕所。回来的时候，我拿着简历，顺便也拿了手机，想想还是别带手机了。就这样，手机摔到 地上了，还好，没摔坏。 在路上边走边看，到了面试的房间，看到了那个应届生。按照自己的面试经验，先让他做个自">
-<meta property="og:updated_time" content="2015-11-20T08:47:53.501Z">
+mysql的innodb数据引擎能够存储的下1亿多条数据
+为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和">
+<meta property="og:updated_time" content="2015-12-11T03:22:21.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="first be interviewer">
-<meta name="twitter:description" content="工作了4年，今天第一次当面试官，从今天开始，打算将一些事情记录下来。
+<meta name="twitter:title" content="data transfer">
+<meta name="twitter:description" content="最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果
 
-原因很简单，第一次当面试官很不成功。
 
-今天在写程序，突然被老大叫去面试一个应届生。顿时感觉手忙脚乱，人事递给我简历，我立马回答说我先上个厕所。回来的时候，我拿着简历，顺便也拿了手机，想想还是别带手机了。就这样，手机摔到 地上了，还好，没摔坏。 在路上边走边看，到了面试的房间，看到了那个应届生。按照自己的面试经验，先让他做个自">
+mysql的innodb数据引擎能够存储的下1亿多条数据
+为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和">
   
     <link rel="alternative" href="/atom.xml" title="sscma" type="application/atom+xml">
   
@@ -193,11 +193,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-interviewer" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-data-transfer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/20/interviewer/" class="article-date">
-  	<time datetime="2015-11-20T03:31:03.000Z" itemprop="datePublished">2015-11-20</time>
+      <a href="/2015/11/21/data-transfer/" class="article-date">
+  	<time datetime="2015-11-21T03:46:05.000Z" itemprop="datePublished">2015-11-21</time>
 </a>
     </div>
   
@@ -210,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first be interviewer
+      data transfer
     </h1>
   
 
@@ -226,40 +226,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code>工作了<span class="number">4</span>年，今天第一次当面试官，从今天开始，打算将一些事情记录下来。
+        <blockquote>
+<p>最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果</p>
+</blockquote>
+<ol>
+<li>mysql的innodb数据引擎能够存储的下1亿多条数据</li>
+<li>为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和业务确认，库存为0的数据可以不用初始化，一下子数据量较少到5000多万，同时将需要插入的sql字段确认，不必要的字段不处理</li>
+<li>为了避免实时库存的影响，先将oralce中的数据导入到mysql，5000多万数据的导入时间在1个多小时左右，工具使用navicate，注意navicate的版本为Navicat Premium，这个版本及支持mysql，也支持oracle，记得设置oci.dll</li>
+<li>语言的选择，由于我们的库存数据需要分表，分表依据为库存地code的MD5后hash取余数，所以直接使用sql实现难度较大，我选择通过编程实现，几种语言的对比在后面列出</li>
+<li>mongodb的插入速度实在惊人，把jvm的参数设置大一些后，每个线程可以插入20w,也就花费60秒左右</li>
+</ol>
+<blockquote>
+<p>4.1java:可以很轻松实现MD5以及hash取余，使用多线程操作（ExecutorService+Runnable），数据库操作使用jdbctemplate或mybatis，发现jdbctemplate性能稍微好些</p>
+<p>4.2python:可以很轻松实现MD5以及hash取余,使用executemany，但是executemany无法传入表名，因为我的表名是不确定的，如果表名确定的话，python的速度绝对超多java，同样插入5w条数据，python只要5s多，java需要50秒左右</p>
+<p>4.3nodejs:看起来快，实际并不快，nodejs是异步操作，提交插入请求后很快返回结果，但是插入动作还在慢慢的执行，5w条数据，nodejs需要200多秒</p>
+</blockquote>
+<p>最终数据顺利导入完成！选择了java+jdbctemplate</p>
 
-原因很简单，第一次当面试官很不成功。
-</code></pre><blockquote>
-<p>今天在写程序，突然被老大叫去面试一个应届生。顿时感觉手忙脚乱，人事递给我简历，我立马回答说<br>我先上个厕所。回来的时候，我拿着简历，顺便也拿了手机，想想还是别带手机了。就这样，手机摔到 地上了，还好，没摔坏。<br> 在路上边走边看，到了面试的房间，看到了那个应届生。按照自己的面试经验，先让他做个自我简介。<br>什么，94年的，瞬间感觉自己老了。<br>上海某个二本学校的。其实这个学校感觉还可以，因为自己当时差点报了这个学校。<br>接下来是我们的对话</p>
-</blockquote>
-<pre><code>Q：大学学了些什么专业课？
-<span class="keyword">A</span>：C语言，操作系统原理，这学期正在学。
-Q：没有其他课了？
-<span class="keyword">A</span>：记不得了……
-Q：数据结构、组成原理、计算机网络、数据库、编译原理……我一下子说了好多，你有自己动手写过程序吗？
-<span class="keyword">A</span>:没有
-Q：一点都没写过？
-<span class="keyword">A</span>：我报名了一个java的培训班
-Q：那好啊，给我说说学了些什么？
-<span class="keyword">A</span>：学了SSH框架
-Q：自己有尝试搭建过SSH吗?
-<span class="keyword">A</span>: 没有
-Q：那知道这3个框架都分别干什么吗？
-<span class="keyword">A</span>：不太清楚，当时学的时候还知道，现在忘记了
-Q：其实忘记很正常，尤其是在学校没做过项目，很多知识学了就忘，java你听说过吧？
-<span class="keyword">A</span>：听说过，自己还学了点，不过也没写过什么
-Q:那你把知道说出来，知道多少说多少
-<span class="keyword">A</span>：没太写过，感觉都忘了
-Q：我感觉不知道问什么了，我就看着简历后面的面试题，看了他哪些不会做，接下来就是给他讲解题目
-<span class="keyword">A</span>：聆听中………………
-Q：希望这些知识回去自己看看，说不定下家面试还能用得上，你先等一会
-</code></pre><blockquote>
-<p>我从屋子里走出来了，和老大说了说，其他人都过来问怎么样，怎么样</p>
-<p>结果很遗憾的就是让人事和他说bye，bye了</p>
-<p>回去我感觉挺不好意思的，好几天感觉都挺内疚，不知道自己是不是问的太多了，还是……</p>
-<p>我觉得我好像不太适合当面试官</p>
-</blockquote>
-<h4 id="暂时没有给博客加留言功能，如果要联系，可以通过邮箱，3Q">暂时没有给博客加留言功能，如果要联系，可以通过邮箱，3Q</h4>
       
     </div>
     
@@ -268,18 +251,9 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
     
 <nav id="article-nav">
   
-    <a href="/2015/11/21/data-transfer/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          data transfer
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/04/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2015/11/20/interviewer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">first be interviewer</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -308,7 +282,7 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="interviewer" data-title="first be interviewer" data-url="http://yoursite.com/2015/11/20/interviewer/"></div>
+	<div class="ds-thread" data-thread-key="data-transfer" data-title="data transfer" data-url="http://yoursite.com/2015/11/21/data-transfer/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
