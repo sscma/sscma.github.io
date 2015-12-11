@@ -185,8 +185,8 @@
     <article id="post-data-transfer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/21/data-transfer/" class="article-date">
-  	<time datetime="2015-11-21T03:46:05.000Z" itemprop="datePublished">2015-11-21</time>
+      <a href="/2015/12/11/data-transfer/" class="article-date">
+  	<time datetime="2015-12-11T03:24:05.000Z" itemprop="datePublished">2015-12-11</time>
 </a>
     </div>
   
@@ -199,7 +199,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/21/data-transfer/">data transfer</a>
+      <a class="article-title" href="/2015/12/11/data-transfer/">data transfer</a>
     </h1>
   
 
@@ -220,7 +220,7 @@
 </ol>
 <blockquote>
 <p>4.1java:可以很轻松实现MD5以及hash取余，使用多线程操作（ExecutorService+Runnable），数据库操作使用jdbctemplate或mybatis，发现jdbctemplate性能稍微好些</p>
-<p>4.2python:可以很轻松实现MD5以及hash取余,使用executemany，但是executemany无法传入表名，因为我的表名是不确定的，如果表名确定的话，python的速度绝对超多java，同样插入5w条数据，python只要5s多，java需要50秒左右</p>
+<p>4.2python:可以很轻松实现MD5以及hash取余,使用executemany，但是executemany无法传入表名，因为我的表名是不确定的，如果表名确定的话，python的速度绝对超过java，同样插入5w条数据，python只要5秒左右，java需要50秒左右</p>
 <p>4.3nodejs:看起来快，实际并不快，nodejs是异步操作，提交插入请求后很快返回结果，但是插入动作还在慢慢的执行，5w条数据，nodejs需要200多秒</p>
 </blockquote>
 <p>最终数据顺利导入完成！选择了java+jdbctemplate</p>
