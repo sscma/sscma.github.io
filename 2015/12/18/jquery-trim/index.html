@@ -5,28 +5,31 @@
   
   <title>data transfer | sscma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果
+  <meta name="description" content="今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的
 
+问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。我去排查问题，
 
-mysql的innodb数据引擎能够存储的下1亿多条数据
-为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和">
+通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。
+改为用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="data transfer">
-<meta property="og:url" content="http://yoursite.com/2015/12/11/data-transfer/index.html">
+<meta property="og:url" content="http://yoursite.com/2015/12/18/jquery-trim/index.html">
 <meta property="og:site_name" content="sscma">
-<meta property="og:description" content="最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果
+<meta property="og:description" content="今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的
 
+问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。我去排查问题，
 
-mysql的innodb数据引擎能够存储的下1亿多条数据
-为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和">
-<meta property="og:updated_time" content="2015-12-11T03:27:22.031Z">
+通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。
+改为用">
+<meta property="og:updated_time" content="2015-12-18T02:29:20.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="data transfer">
-<meta name="twitter:description" content="最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果
+<meta name="twitter:description" content="今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的
 
+问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。我去排查问题，
 
-mysql的innodb数据引擎能够存储的下1亿多条数据
-为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和">
+通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。
+改为用">
   
     <link rel="alternative" href="/atom.xml" title="sscma" type="application/atom+xml">
   
@@ -193,11 +196,11 @@ mysql的innodb数据引擎能够存储的下1亿多条数据
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-data-transfer" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-jquery-trim" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/11/data-transfer/" class="article-date">
-  	<time datetime="2015-12-11T03:24:05.000Z" itemprop="datePublished">2015-12-11</time>
+      <a href="/2015/12/18/jquery-trim/" class="article-date">
+  	<time datetime="2015-12-18T02:10:34.000Z" itemprop="datePublished">2015-12-18</time>
 </a>
     </div>
   
@@ -227,21 +230,19 @@ mysql的innodb数据引擎能够存储的下1亿多条数据
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>最近需要上线一个项目，上线前的准备工作就是环境的搭建和数据迁移。数据迁移由我负责，主要工作就是将oracle数据库中的1亿多条数据导入到mysql和mongodb中。mysql中存放库存数据，mongodb中存放库存操作流水，通过一周的时间研究，得出如下结果</p>
+<p>今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的</p>
 </blockquote>
+<p>问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。<br>我去排查问题，</p>
 <ol>
-<li>mysql的innodb数据引擎能够存储的下1亿多条数据</li>
-<li>为了减轻迁移的数据量，需要对迁移的数据进行处理，我这次处理的是库存数据，通过和业务确认，库存为0的数据可以不用初始化，一下子数据量较少到5000多万，同时将需要插入的sql字段确认，不必要的字段不处理</li>
-<li>为了避免实时库存的影响，先将oralce中的数据导入到mysql，5000多万数据的导入时间在1个多小时左右，工具使用navicate，注意navicate的版本为Navicat Premium，这个版本及支持mysql，也支持oracle，记得设置oci.dll</li>
-<li>语言的选择，由于我们的库存数据需要分表，分表依据为库存地code的MD5后hash取余数，所以直接使用sql实现难度较大，我选择通过编程实现，几种语言的对比在后面列出</li>
-<li>mongodb的插入速度实在惊人，把jvm的参数设置大一些后，每个线程可以插入20w,也就花费60秒左右</li>
+<li>通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。</li>
+<li>改为用户编码之后，发现这个接口还是查询不到用户对应的角色，我开始通过mongovue中直接去查看，发现也没有。还好数据量不多，一个个去对比，发现用户编码HQ01U4321该用户是存在的，那怎么查询不到了，这里折腾了好一会</li>
+<li>我开始怀疑数据的问题了，结果突然别人发现HQ01U4321前面多了一个空格，这个空格怎么会传进去了，开始找数据的源头，这个用户名的数据来自ERP，去oracle中查看确实有一个空格，因为现在用的是测试库，所以数据有些问题是很正常的</li>
+<li>但是就奇怪了，就算有空格也不会影响查询的结果，难道是url对空格做了处理……</li>
+<li>过了好久之后，同事一看他的代码，他在取用户名的时候加了个trim函数，把空格去掉了，狂晕</li>
 </ol>
 <blockquote>
-<p>4.1java:可以很轻松实现MD5以及hash取余，使用多线程操作（ExecutorService+Runnable），数据库操作使用jdbctemplate或mybatis，发现jdbctemplate性能稍微好些</p>
-<p>4.2python:可以很轻松实现MD5以及hash取余,使用executemany，但是executemany无法传入表名，因为我的表名是不确定的，如果表名确定的话，python的速度绝对超过java，同样插入5w条数据，python只要5秒左右，java需要50秒左右</p>
-<p>4.3nodejs:看起来快，实际并不快，nodejs是异步操作，提交插入请求后很快返回结果，但是插入动作还在慢慢的执行，5w条数据，nodejs需要200多秒</p>
+<p>总结：其实数据中包含空格是没有问题的，一般在数据的最源头可以处理，比如用户名，在用户注册的页面可以加上trim，这样存入数据库就没有问题了。如果原始数据就是有空格，也没有关系，因为url查询时对空格做了处理，为%20，所以在中间环节取值的时候不要用trim就可以避免问题的出现了。</p>
 </blockquote>
-<p>最终数据顺利导入完成！选择了java+jdbctemplate</p>
 
       
     </div>
@@ -251,18 +252,9 @@ mysql的innodb数据引擎能够存储的下1亿多条数据
     
 <nav id="article-nav">
   
-    <a href="/2015/12/18/jquery-trim/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          data transfer
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/20/interviewer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">first be interviewer</div>
+    <a href="/2015/12/11/data-transfer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">data transfer</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -291,7 +283,7 @@ mysql的innodb数据引擎能够存储的下1亿多条数据
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="data-transfer" data-title="data transfer" data-url="http://yoursite.com/2015/12/11/data-transfer/"></div>
+	<div class="ds-thread" data-thread-key="jquery-trim" data-title="data transfer" data-url="http://yoursite.com/2015/12/18/jquery-trim/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
