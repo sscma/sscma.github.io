@@ -182,6 +182,83 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-atomikos-activemq" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/22/atomikos-activemq/" class="article-date">
+  	<time datetime="2015-12-22T02:52:19.000Z" itemprop="datePublished">2015-12-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/22/atomikos-activemq/">atomikos activemq</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>分布式事务相信大家都用过，一般来说分布式事务主要用在数据库上。但是项目中用到了消息队列，猜想atomikos事务是否支持消息队列，虽然现在项目中还没有碰到消息队列与数据库绑定在一个事务中，但是打算自己提前搭建与测试一下，免得后面用到。在网上搜了一下，主要就是配置的问题，中间也走了不少弯路，现在列出来，供大家参考。</p>
+</blockquote>
+<ol>
+<li><p>修改pom.xml<br>注意的atomikos版本，因为之前用的是3.7.0，所以jms的也是用3.7.0，不然启动抛异常</p>
+<pre><code><span class="comment">&lt;!-- 分布式事务 --&gt;</span>
+<span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.atomikos<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>transactions-jdbc<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>3.7.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>javax.transaction<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jta<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+
+<span class="comment">&lt;!-- 支持jms的分布式事务 ，版本使用3.7.0,使用高版本可能出现Caused by: java.lang.NoClassDefFoundError: 
+    com/atomikos/logging/LoggerFactory错误 --&gt;</span>
+<span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.atomikos<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>transactions-jms<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>3.7.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+</code></pre></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-jquery-trim" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

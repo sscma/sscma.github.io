@@ -3,33 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>jquery trim | sscma</title>
+  <title>atomikos activemq | sscma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的
+  <meta name="description" content="分布式事务相信大家都用过，一般来说分布式事务主要用在数据库上。但是项目中用到了消息队列，猜想atomikos事务是否支持消息队列，虽然现在项目中还没有碰到消息队列与数据库绑定在一个事务中，但是打算自己提前搭建与测试一下，免得后面用到。在网上搜了一下，主要就是配置的问题，中间也走了不少弯路，现在列出来，供大家参考。
 
-问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。我去排查问题，
 
-通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。
-改为用">
+修改pom.xml注意的atomikos版本，因为之前用的是3.7.0，所以jm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jquery trim">
-<meta property="og:url" content="http://yoursite.com/2015/12/18/jquery-trim/index.html">
+<meta property="og:title" content="atomikos activemq">
+<meta property="og:url" content="http://yoursite.com/2015/12/22/atomikos-activemq/index.html">
 <meta property="og:site_name" content="sscma">
-<meta property="og:description" content="今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的
+<meta property="og:description" content="分布式事务相信大家都用过，一般来说分布式事务主要用在数据库上。但是项目中用到了消息队列，猜想atomikos事务是否支持消息队列，虽然现在项目中还没有碰到消息队列与数据库绑定在一个事务中，但是打算自己提前搭建与测试一下，免得后面用到。在网上搜了一下，主要就是配置的问题，中间也走了不少弯路，现在列出来，供大家参考。
 
-问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。我去排查问题，
 
-通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。
-改为用">
-<meta property="og:updated_time" content="2015-12-18T02:31:01.805Z">
+修改pom.xml注意的atomikos版本，因为之前用的是3.7.0，所以jm">
+<meta property="og:updated_time" content="2015-12-22T03:01:08.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jquery trim">
-<meta name="twitter:description" content="今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的
+<meta name="twitter:title" content="atomikos activemq">
+<meta name="twitter:description" content="分布式事务相信大家都用过，一般来说分布式事务主要用在数据库上。但是项目中用到了消息队列，猜想atomikos事务是否支持消息队列，虽然现在项目中还没有碰到消息队列与数据库绑定在一个事务中，但是打算自己提前搭建与测试一下，免得后面用到。在网上搜了一下，主要就是配置的问题，中间也走了不少弯路，现在列出来，供大家参考。
 
-问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。我去排查问题，
 
-通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。
-改为用">
+修改pom.xml注意的atomikos版本，因为之前用的是3.7.0，所以jm">
   
     <link rel="alternative" href="/atom.xml" title="sscma" type="application/atom+xml">
   
@@ -196,11 +190,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-jquery-trim" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-atomikos-activemq" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/18/jquery-trim/" class="article-date">
-  	<time datetime="2015-12-18T02:10:34.000Z" itemprop="datePublished">2015-12-18</time>
+      <a href="/2015/12/22/atomikos-activemq/" class="article-date">
+  	<time datetime="2015-12-22T02:52:19.000Z" itemprop="datePublished">2015-12-22</time>
 </a>
     </div>
   
@@ -213,7 +207,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      jquery trim
+      atomikos activemq
     </h1>
   
 
@@ -230,19 +224,32 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>今天碰到个很诡异的问题，查了半天，原来是jquery的trim函数引起的</p>
+<p>分布式事务相信大家都用过，一般来说分布式事务主要用在数据库上。但是项目中用到了消息队列，猜想atomikos事务是否支持消息队列，虽然现在项目中还没有碰到消息队列与数据库绑定在一个事务中，但是打算自己提前搭建与测试一下，免得后面用到。在网上搜了一下，主要就是配置的问题，中间也走了不少弯路，现在列出来，供大家参考。</p>
 </blockquote>
-<p>问题是这样的，之前的权限管理是我做的，现在需要修改权限管理的页面，将用户选择改为下拉并且分页，另一个同事负责修改，改完以后发现无法给用户的角色绑定数据了。<br>我去排查问题，</p>
 <ol>
-<li>通过chrome的网络请求，看到用户查询角色的接口传递的参数不对，之前传递的是用户编码，现在传递的是用户名，这个很好发现，因为中文做了编码转换。</li>
-<li>改为用户编码之后，发现这个接口还是查询不到用户对应的角色，我开始通过mongovue中直接去查看，发现也没有。还好数据量不多，一个个去对比，发现用户编码HQ01U4321该用户是存在的，那怎么查询不到了，这里折腾了好一会</li>
-<li>我开始怀疑数据的问题了，结果突然别人发现HQ01U4321前面多了一个空格，这个空格怎么会传进去了，开始找数据的源头，这个用户名的数据来自ERP，去oracle中查看确实有一个空格，因为现在用的是测试库，所以数据有些问题是很正常的</li>
-<li>但是就奇怪了，就算有空格也不会影响查询的结果，难道是url对空格做了处理……</li>
-<li>过了好久之后，同事一看他的代码，他在取用户名的时候加了个trim函数，把空格去掉了，狂晕</li>
+<li><p>修改pom.xml<br>注意的atomikos版本，因为之前用的是3.7.0，所以jms的也是用3.7.0，不然启动抛异常</p>
+<pre><code><span class="comment">&lt;!-- 分布式事务 --&gt;</span>
+<span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.atomikos<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>transactions-jdbc<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>3.7.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>javax.transaction<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>jta<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+
+<span class="comment">&lt;!-- 支持jms的分布式事务 ，版本使用3.7.0,使用高版本可能出现Caused by: java.lang.NoClassDefFoundError: 
+    com/atomikos/logging/LoggerFactory错误 --&gt;</span>
+<span class="tag">&lt;<span class="title">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>com.atomikos<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>transactions-jms<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">version</span>&gt;</span>3.7.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">dependency</span>&gt;</span>
+</code></pre></li>
 </ol>
-<blockquote>
-<p>总结：其实数据中包含空格是没有问题的，一般在数据的最源头可以处理，比如用户名，在用户注册的页面可以加上trim，这样存入数据库就没有问题了。如果原始数据就是有空格，也没有关系，因为url查询时对空格做了处理，为%20，所以在中间环节取值的时候不要用trim就可以避免问题的出现了。</p>
-</blockquote>
 
       
     </div>
@@ -252,18 +259,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/22/atomikos-activemq/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          atomikos activemq
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/11/data-transfer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">data transfer</div>
+    <a href="/2015/12/18/jquery-trim/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jquery trim</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -292,7 +290,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="jquery-trim" data-title="jquery trim" data-url="http://yoursite.com/2015/12/18/jquery-trim/"></div>
+	<div class="ds-thread" data-thread-key="atomikos-activemq" data-title="atomikos activemq" data-url="http://yoursite.com/2015/12/22/atomikos-activemq/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
