@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
 					</div>
 				</section>
 				
@@ -376,6 +376,81 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbctemplate/">jdbctemplate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mysql-deadlock" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/30/mysql-deadlock/" class="article-date">
+  	<time datetime="2015-11-30T05:50:12.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/30/mysql-deadlock/">atomikos activemq</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction，很熟悉吧，今天项目中就出现了这个问题，我操作的是库存表，估计搞库存的都会出现这个问题，在此不去讨论库存的具体业务逻辑，而是针对mysql的死锁问题做一个总结。</p>
+</blockquote>
+<p>mysql区分有行锁和表锁区分。在navicate客户端开启两个查询窗口即可模拟操作。下面的测试是以mysql的innodb数据引擎为基础。</p>
+<p>1.测试行锁</p>
+<p>命令行1<br>begin；<br>select * from user where id = 1 for update；</p>
+<p>命令行2<br>（1）update user set username = “test123” where id = 1;<br>（2）update user set username = “test123” where id = 2;</p>
+<p>命令行1没有commit之前，<br>命令行2中的第一条命令无法更新成功，命令行2中的第二条命令可以更新成功</p>
+<p>2.测试表锁</p>
+<p>命令行1<br>begin；<br>select * from user where username = “test” for update;</p>
+<p>命令行2<br>（1）update user set username = “test123” where id = 1;<br>（2）update user set username = “test123” where id = 2;<br>（3）update user set username = “test123” where username = “test”;</p>
+<p>命令1没有commit之前，<br>命令行2中的三条命令无法都更新成功</p>
+<p>3.如果既要行锁但是又要查询条件并不是主键，可以使用如下方法（子查询）<br>begin；<br>select * from user where id = (select id fro user where username = “test”) for update;</p>
+<p>要保证子查询select的结果唯一，如果结果不唯一，则报如下错误<br>mysql&gt; select * from user where id = (select id from user where username = “test”) for update;<br>1242 - Subquery returns more than 1 row</p>
+<p>这时候可以使用in，不过锁住的是整个表<br> begin;<br>select * from user where id in (select id from user where username = “test”) for update;</p>
+<p>同时还有另外一种方法，就是给where 后面的条件加上唯一索引（或者普通索引，但是锁住的可能是多行，mysql查询结果总量大于等于3就不行了，所以最好用唯一索引），如下：</p>
+<p>命令行1<br>begin;<br>select * from inventory_0 where goods_code = ‘001’ and ipwareh_code = ‘HQ0001’ and acwareh_code = ‘HQ0001’ for update;</p>
+<p>命令行2<br>update inventory_0 set inventory_quantity = 13 where id = 1;</p>
+<p>命令行3<br>update inventory_0 set inventory_quantity = 13 where goods_code = ‘001’ and ipwareh_code = ‘HQ0001’ and acwareh_code = ‘HQ0001’;</p>
+<p>这时候命令行1没哟提交之前，命令行2，命令行3不能执行</p>
+<p>4.默认的update语句也是区分锁表和锁行<br>update user set username = “test1” where id = 1;则锁行,id为主键<br>update user set username = “test1” where username = “test”;则锁表，username 没有索引或者只是普通索引</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 	</div>
 
       
