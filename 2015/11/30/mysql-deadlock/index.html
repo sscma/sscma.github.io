@@ -5,16 +5,16 @@
   
   <title>mysql deadlock index | sscma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction，很熟悉吧，今天项目中就出现了这个问题，我">
+  <meta name="description" content="mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction。很熟悉吧，今天项目中就出现了这个问题，我">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql deadlock index">
 <meta property="og:url" content="http://yoursite.com/2015/11/30/mysql-deadlock/index.html">
 <meta property="og:site_name" content="sscma">
-<meta property="og:description" content="mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction，很熟悉吧，今天项目中就出现了这个问题，我">
-<meta property="og:updated_time" content="2015-12-23T08:16:38.897Z">
+<meta property="og:description" content="mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction。很熟悉吧，今天项目中就出现了这个问题，我">
+<meta property="og:updated_time" content="2015-12-23T08:18:45.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql deadlock index">
-<meta name="twitter:description" content="mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction，很熟悉吧，今天项目中就出现了这个问题，我">
+<meta name="twitter:description" content="mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction。很熟悉吧，今天项目中就出现了这个问题，我">
   
     <link rel="alternative" href="/atom.xml" title="sscma" type="application/atom+xml">
   
@@ -219,9 +219,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction，很熟悉吧，今天项目中就出现了这个问题，我操作的是库存表，估计搞库存的都会出现这个问题，在此不去讨论库存的具体业务逻辑，而是针对mysql的死锁问题做一个总结。</p>
+<p>mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction。很熟悉吧，今天项目中就出现了这个问题，我操作的是库存表，估计搞库存的都会可能碰到库存加减并发的问题，在此不去讨论库存的具体业务逻辑，而是针对mysql的死锁问题做一个总结。</p>
 </blockquote>
-<p>mysql区分有行锁和表锁区分。在navicate客户端开启两个查询窗口即可模拟操作。下面的测试是以mysql的innodb数据引擎为基础。</p>
+<p>mysql有行锁和表锁区分。在navicate客户端开启两个查询窗口即可模拟操作。下面的测试是以mysql的innodb数据引擎为基础。</p>
 <p>1.测试行锁</p>
 <p>命令行1<br>begin；<br>select * from user where id = 1 for update；</p>
 <p>命令行2<br>（1）update user set username = “test123” where id = 1;<br>（2）update user set username = “test123” where id = 2;</p>
