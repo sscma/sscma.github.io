@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/31/java-concurrent-CountDownLatch/index.html">
 <meta property="og:site_name" content="sscma">
 <meta property="og:description" content="明天就要放假了，但是测试环境有个错误爆出了，### Error updating database.  Cause: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1117837 &amp;gt; 1048576). You can change this value on the server by settin">
-<meta property="og:updated_time" content="2016-01-04T02:29:18.690Z">
+<meta property="og:updated_time" content="2016-01-04T02:31:30.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java concurrent CountDownLatch">
 <meta name="twitter:description" content="明天就要放假了，但是测试环境有个错误爆出了，### Error updating database.  Cause: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1117837 &amp;gt; 1048576). You can change this value on the server by settin">
@@ -219,7 +219,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>明天就要放假了，但是测试环境有个错误爆出了，### Error updating database.  Cause: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1117837 &gt; 1048576). You can change this value on the server by setting the max_allowed_packet’ variable.<br>其实这个错误主要是因为测试环境mysql的max_allowed_packet参数设置太小了，生成环境的为20M，所以没有出现过这个问题。而引起这个错误的原因就是mybatis的批量插入导致sql语句太长。</p>
+<p>明天就要放假了，但是测试环境有个错误爆出了，### Error updating database.  Cause: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1117837 &gt; 1048576). You can change this value on the server by setting the max_allowed_packet’ variable.<br>其实这个错误主要是因为测试环境mysql的max_allowed_packet参数设置太小了，生产环境的为20M，所以没有出现过这个问题。而引起这个错误的原因就是mybatis的批量插入导致sql语句太长。</p>
 </blockquote>
 <p>这个问题的解决办法倒不是很难，大概有如下想法<br>1.设置mysql的sql自动分割截取功能，但是网上没有搜索到相应的功能<br>2.修改mysql的max_allowed_packet，这个应该是最方便的了，程序不用做任何修改，但是以后数据量太大还是避免不了出现该问题<br>3.修改程序，如果数据量太大时，分批次处理，这是永久有效的方案</p>
 <p>我主要按照2,3进行了修改</p>
