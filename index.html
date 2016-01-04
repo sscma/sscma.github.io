@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 20px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 20px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
 					</div>
 				</section>
 				
@@ -181,6 +181,74 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-java-concurrent-CountDownLatch" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/31/java-concurrent-CountDownLatch/" class="article-date">
+  	<time datetime="2015-12-31T08:30:30.000Z" itemprop="datePublished">2015-12-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/31/java-concurrent-CountDownLatch/">java concurrent CountDownLatch</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>明天就要放假了，但是测试环境有个错误爆出了，### Error updating database.  Cause: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1117837 &gt; 1048576). You can change this value on the server by setting the max_allowed_packet’ variable.<br>其实这个错误主要是因为测试环境mysql的max_allowed_packet参数设置太小了，生成环境的为20M，所以没有出现过这个问题。而引起这个错误的原因就是mybatis的批量插入导致sql语句太长。</p>
+</blockquote>
+<p>这个问题的解决办法倒不是很难，大概有如下想法<br>1.设置mysql的sql自动分割截取功能，但是网上没有搜索到相应的功能<br>2.修改mysql的max_allowed_packet，这个应该是最方便的了，程序不用做任何修改，但是以后数据量太大还是避免不了出现该问题<br>3.修改程序，如果数据量太大时，分批次处理，这是永久有效的方案</p>
+<p>我主要按照2,3进行了修改</p>
+<ul>
+<li>将mysql的max_allowed_packet设置为20m，这个可以通过修改mysql的配置文件，也可以通过控制台的命令行进行设置</li>
+<li>修改程序，dao层无需做任何修改，只需要在service层新加一个接口与实现，service层的实现如下，</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchInsert</span><span class="params">(List&lt;InventoryTransEntity&gt; recordList)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (CollectionUtils.isEmpty(recordList)) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> MbaException(<span class="string">"库存事务批量插入传入参数为空！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> total = recordList.size();<span class="comment">// 总数</span></span><br><span class="line">	<span class="keyword">if</span> (total &lt;= pageSize) &#123;<span class="comment">// 数量不是太多就直接插入</span></span><br><span class="line">		mbaInventoryTransEntityDao.batchInsertSelective(recordList);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	ExecutorService executorService = Executors.newFixedThreadPool(threadCount);</span><br><span class="line">	<span class="keyword">int</span> totalPage;</span><br><span class="line">	<span class="keyword">if</span> (total % pageSize == <span class="number">0</span>) &#123;</span><br><span class="line">		totalPage = total / pageSize;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		totalPage = total / pageSize + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	CountDownLatch latch = <span class="keyword">new</span> CountDownLatch(totalPage);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; totalPage; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> begin;</span><br><span class="line">		<span class="keyword">int</span> end;</span><br><span class="line">		begin = i * pageSize;</span><br><span class="line">		<span class="keyword">if</span> (i == totalPage - <span class="number">1</span>) &#123;</span><br><span class="line">			end = total;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			end = (i + <span class="number">1</span>) * pageSize;</span><br><span class="line">		&#125;</span><br><span class="line">		List&lt;InventoryTransEntity&gt; subRecordList = recordList.subList(begin, end);</span><br><span class="line">		InventoryTransThread thread = <span class="keyword">new</span> InventoryTransThread(mbaInventoryTransEntityDao, subRecordList, latch);</span><br><span class="line">		executorService.execute(thread);</span><br><span class="line">	&#125;</span><br><span class="line">	latch.await();</span><br><span class="line">	executorService.shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>子线程的代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InventoryTransThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	IMbaInventoryTransEntityDao mbaInventoryTransEntityDao;</span><br><span class="line">	List&lt;InventoryTransEntity&gt; subRecordList;</span><br><span class="line">	CountDownLatch latch;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">InventoryTransThread</span><span class="params">(IMbaInventoryTransEntityDao mbaInventoryTransEntityDao,</span><br><span class="line">			List&lt;InventoryTransEntity&gt; subRecordList,CountDownLatch latch)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.mbaInventoryTransEntityDao = mbaInventoryTransEntityDao;</span><br><span class="line">		<span class="keyword">this</span>.subRecordList = subRecordList;</span><br><span class="line">		<span class="keyword">this</span>.latch = latch;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		mbaInventoryTransEntityDao.batchInsertSelective(subRecordList);</span><br><span class="line">		latch.countDown();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>其实刚开始并没有使用CountDownLatch，在测试环境测试junit的时候，使用了线程的休眠，所以数据插入没有问题，但是当程序提交到测试环境，数据量比较大，4000条左右时，会出现批量处理还没有插入完成，后面的程序开始运行了，导致插入的部分数据没有迁移。<br>后面才想到估计是子线程的异步运行，主线程没有等待子线程的结束。主线程等待子线程结束并不止CountDownLatch一种方法，也可以通过共享变量的方式。</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-2015-summary" class="article article-type-post" itemscope itemprop="blogPost">
   
