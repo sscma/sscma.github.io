@@ -3,17 +3,42 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: java | sscma</title>
+  <title>java jvm gc | sscma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="sscma">
-<meta property="og:url" content="http://yoursite.com/tags/java/index.html">
+  <meta name="description" content="垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。
+
+
+
+判定对象为垃圾对象的方法1.引用计数法（Reference Counting），无法解决循环依赖的情况，Java没有用该方法，Python使用该方法2.跟踪法/可达性分析法（Tracing），查找根节点到对象的可达（reachable）路径确定是否删除
+
+
+
+常用垃圾回收算法1.标记-清除（M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java jvm gc">
+<meta property="og:url" content="http://yoursite.com/2015/11/17/java-jvm-gc/index.html">
 <meta property="og:site_name" content="sscma">
-<meta property="og:description">
+<meta property="og:description" content="垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。
+
+
+
+判定对象为垃圾对象的方法1.引用计数法（Reference Counting），无法解决循环依赖的情况，Java没有用该方法，Python使用该方法2.跟踪法/可达性分析法（Tracing），查找根节点到对象的可达（reachable）路径确定是否删除
+
+
+
+常用垃圾回收算法1.标记-清除（M">
+<meta property="og:updated_time" content="2016-01-21T08:08:04.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sscma">
-<meta name="twitter:description">
+<meta name="twitter:title" content="java jvm gc">
+<meta name="twitter:description" content="垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。
+
+
+
+判定对象为垃圾对象的方法1.引用计数法（Reference Counting），无法解决循环依赖的情况，Java没有用该方法，Python使用该方法2.跟踪法/可达性分析法（Tracing），查找根节点到对象的可达（reachable）路径确定是否删除
+
+
+
+常用垃圾回收算法1.标记-清除（M">
   
     <link rel="alternative" href="/atom.xml" title="sscma" type="application/atom+xml">
   
@@ -180,156 +205,134 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-java-jvm-gc" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/01/15/java-concurrent-lock/" class="archive-article-date">
-  	<time datetime="2016-01-15T01:56:11.000Z" itemprop="datePublished">Jan 15</time>
+    <div class="article-meta">
+      <a href="/2015/11/17/java-jvm-gc/" class="article-date">
+  	<time datetime="2015-11-17T12:35:11.000Z" itemprop="datePublished">2015-11-17</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/15/java-concurrent-lock/">java concurrent lock</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java jvm gc
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+      </div>
       
-        </div></section>
+    
+    <div class="article-entry" itemprop="articleBody">
       
+        <blockquote>
+<p>垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>判定对象为垃圾对象的方法<br>1.引用计数法（Reference Counting），无法解决循环依赖的情况，Java没有用该方法，Python使用该方法<br>2.跟踪法/可达性分析法（Tracing），查找根节点到对象的可达（reachable）路径确定是否删除</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>常用垃圾回收算法<br>1.标记-清除（Mark-Sweep）算法<br>2.标记-整理/压缩（Mark-Compact）算法<br>3.复制（Copying）算法<br>4.分代收集（Generational Collection）算法</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>JDK1.7中的具体垃圾收集器，垃圾回收算法的具体实现<br>1.Serial<br>2.Serial Old<br>3.ParNew<br>4.Parallel Scavenge<br>5.Parallel Old<br>6.CMS(Concurrent-Mark-Sweep)<br>7.G1</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Java中的垃圾回收包含Minor GC，Major GC，Full GC<br>1.Minor GC发生在年轻代，发生比较频繁，速度较快，采用Copying算法<br>2.Major GC发生在年老代，速度较慢，时间一般是Minor GC的10倍，采用Mark-Compact算法<br>3.Full GC不等于Major GC，也不等于Minor GC + Major GC，有时候确实等于Major GC，但也有时候等于Minor GC + Major GC，具体是可以通过参数进行配置</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://blog.csdn.net/zouxinfox/article/details/1594216" target="_blank" rel="external">http://blog.csdn.net/zouxinfox/article/details/1594216</a><br>2.<a href="http://www.cnblogs.com/dolphin0520/p/3783345.html" target="_blank" rel="external">http://www.cnblogs.com/dolphin0520/p/3783345.html</a><br>3.<a href="http://blog.chinaunix.net/uid-540802-id-1746443.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-540802-id-1746443.html</a><br>4.<a href="http://blog.csdn.net/zsuguangh/article/details/6429592" target="_blank" rel="external">http://blog.csdn.net/zsuguangh/article/details/6429592</a><br>5.<a href="http://caoyaojun1988-163-com.iteye.com/blog/1966814" target="_blank" rel="external">http://caoyaojun1988-163-com.iteye.com/blog/1966814</a><br>6.<a href="http://www.cnblogs.com/laoyangHJ/articles/java_gc.html" target="_blank" rel="external">http://www.cnblogs.com/laoyangHJ/articles/java_gc.html</a><br>7.<a href="http://www.cnblogs.com/sunniest/p/4575144.html" target="_blank" rel="external">http://www.cnblogs.com/sunniest/p/4575144.html</a><br>8.<a href="http://blog.jobbole.com/80499/" target="_blank" rel="external">http://blog.jobbole.com/80499/</a></p>
+</blockquote>
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
+    </div>
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/12/31/java-concurrent-CountDownLatch/" class="archive-article-date">
-  	<time datetime="2015-12-31T08:30:30.000Z" itemprop="datePublished">Dec 31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/31/java-concurrent-CountDownLatch/">java concurrent CountDownLatch</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/17/java-jvm-gc/" class="archive-article-date">
-  	<time datetime="2015-11-17T12:35:11.000Z" itemprop="datePublished">Nov 17</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/17/java-jvm-gc/">java jvm gc</a>
-    </h1>
+    <a href="/2015/11/20/interviewer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          first be interviewer
+        
+      </div>
+    </a>
   
+  
+    <a href="/2015/11/16/java-jvm/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java jvm</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/16/java-jvm/" class="archive-article-date">
-  	<time datetime="2015-11-16T12:01:11.000Z" itemprop="datePublished">Nov 16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/16/java-jvm/">java jvm</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="java-jvm-gc" data-title="java jvm gc" data-url="http://yoursite.com/2015/11/17/java-jvm-gc/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
 
 </div>
       <footer id="footer">
@@ -359,9 +362,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}

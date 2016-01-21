@@ -27,7 +27,7 @@
 1.String2.List3.Hash4.Set5.Sorted Set
 
 接着，简单介绍下业务。我是做电商开发的，电商的业务">
-<meta property="og:updated_time" content="2016-01-11T07:48:44.785Z">
+<meta property="og:updated_time" content="2016-01-12T02:16:44.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis queue">
 <meta name="twitter:description" content="互联网公司对redis的喜欢毋庸置疑，redis能实现的功能太多，不用业务有不同的方法。对于很多业务，redis总感觉能帮得上忙。最近买了本redis的新书，看着看着，想起来之前一个项目中使用过redis，而且效果很好。
@@ -133,7 +133,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 20px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
+						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 15px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
 					</div>
 				</section>
 				
@@ -268,6 +268,10 @@
 <blockquote>
 <p>提醒大家注意使用，这里抢红包需要事先将数据导入，我们当时就是前一天晚上将数据导入到redis中。导入的方式就是将数据库的每条记录转换成json格式存入redis，还要注意领取失败的时候将json记录返还到队列中。</p>
 </blockquote>
+<hr>
+<blockquote>
+<p>最后回忆一下当时使用redis queue的压测结果，具体的数据我没有记下来，已经过去挺久的了，当时是使用apache jmeter做压测的，结果是每秒处理接近1000次。</p>
+</blockquote>
 
       
     </div>
@@ -276,6 +280,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/01/15/java-concurrent-lock/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          java concurrent lock
+        
+      </div>
+    </a>
   
   
     <a href="/2015/12/31/java-concurrent-CountDownLatch/" id="article-nav-older" class="article-nav-link-wrap">

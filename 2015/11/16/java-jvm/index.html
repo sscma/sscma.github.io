@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | sscma</title>
+  <title>java jvm | sscma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="Java内存（逻辑内存）区域划分1.堆（Heap）2.虚拟机栈（Stack），用于存储局部变量表、操作栈、动态链接、方法出口等信息3.方法区（Method Area），用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据4.本地方法栈（Native Method Stack），用于存储Native方法需要的信息5.程序计数器（PC，Program Counter Regis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/11/04/hello-world/index.html">
+<meta property="og:title" content="java jvm">
+<meta property="og:url" content="http://yoursite.com/2015/11/16/java-jvm/index.html">
 <meta property="og:site_name" content="sscma">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-11-04T03:37:40.540Z">
+<meta property="og:description" content="Java内存（逻辑内存）区域划分1.堆（Heap）2.虚拟机栈（Stack），用于存储局部变量表、操作栈、动态链接、方法出口等信息3.方法区（Method Area），用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据4.本地方法栈（Native Method Stack），用于存储Native方法需要的信息5.程序计数器（PC，Program Counter Regis">
+<meta property="og:updated_time" content="2016-01-21T08:08:52.662Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="java jvm">
+<meta name="twitter:description" content="Java内存（逻辑内存）区域划分1.堆（Heap）2.虚拟机栈（Stack），用于存储局部变量表、操作栈、动态链接、方法出口等信息3.方法区（Method Area），用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据4.本地方法栈（Native Method Stack），用于存储Native方法需要的信息5.程序计数器（PC，Program Counter Regis">
   
     <link rel="alternative" href="/atom.xml" title="sscma" type="application/atom+xml">
   
@@ -184,11 +181,11 @@ Quick">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java-jvm" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/04/hello-world/" class="article-date">
-  	<time datetime="2015-11-04T03:37:40.540Z" itemprop="datePublished">2015-11-04</time>
+      <a href="/2015/11/16/java-jvm/" class="article-date">
+  	<time datetime="2015-11-16T12:01:11.000Z" itemprop="datePublished">2015-11-16</time>
 </a>
     </div>
   
@@ -201,7 +198,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      java jvm
     </h1>
   
 
@@ -209,6 +206,10 @@ Quick">
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -217,15 +218,20 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <blockquote>
+<p>Java内存（逻辑内存）区域划分<br>1.堆（Heap）<br>2.虚拟机栈（Stack），用于存储局部变量表、操作栈、动态链接、方法出口等信息<br>3.方法区（Method Area），用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据<br>4.本地方法栈（Native Method Stack），用于存储Native方法需要的信息<br>5.程序计数器（PC，Program Counter Register），这个计数器的值来选取下一条需要执行的字节码指令，顺序、分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。<br>6.运行时常量池(Runtime Constant Pool)，用于存放编译期生成的各种字面量和符号引用，String 类的intern() 方法</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Java堆的分区<br>1.年轻代/新生代（Young Generation），又分为伊甸（Eden）、幸存区0（Survivor From）、幸存区1（Survivor To），三个区域的默认比例为8:1:1，可以通过-XX:SurvivorRatio设置。可以通过-XX:NewSize（for jdk 1.3/1.4）或-Xmn(for jdk 1.4 or later)设置整个年轻代大小<br>2.年老代（Old Generation），年老代与年轻代的默认比例为2:1，可以通过-XX:NewRatio设置<br>3.永久代（Permanent Generation），Hot Spot虚拟机中方法区近似于永久代，BEA JRockit、IBM J9等来说是不存在永久代的概念的，可以通过-XX:PermSize与-XX:MaxPermSize设置初始值和最大值</p>
+</blockquote>
+<p>年轻代和年老代的所有区域大小可以通过-Xms与-Xmx设置初始值和最大值，两者最好设置相同，否则capacity的值会来回飘动，避免每次垃圾回收完成后JVM重新分配内存</p>
+<p>-Xms  默认大小为物理内存的1/64<br>-Xmx  默认大小为物理内存的1/4，最大值与操作系统的数据模型有关、虚拟内存、物理内存有关<br>-XX:PermSize    我的64为机器为20M左右,如果系统中反射应用比较多，可以将这项设置大一些<br>-XX:MaxPermSize   32位机器默认的永久代的大小为64M，64位的机器则为85M，我的64为机器为82M左右<br>-Xss   每个线程堆栈的大小，JDK5.0以后每个线程堆栈大小为1M,以前每个线程堆栈大小为256K</p>
+<hr>
+<p>-X选项是非标准选项，如有更改，恕不另行通知。<br>可以通过java -X查看</p>
+<blockquote>
+<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://www.cnblogs.com/dingyingsi/p/3760447.html" target="_blank" rel="external">http://www.cnblogs.com/dingyingsi/p/3760447.html</a><br>2.<a href="http://www.cnblogs.com/AloneSword/p/4262255.html" target="_blank" rel="external">http://www.cnblogs.com/AloneSword/p/4262255.html</a><br>3.<a href="http://www.cnblogs.com/redcreen/archive/2011/05/04/2037057.html" target="_blank" rel="external">http://www.cnblogs.com/redcreen/archive/2011/05/04/2037057.html</a><br>4.<a href="http://unixboy.iteye.com/blog/174173" target="_blank" rel="external">http://unixboy.iteye.com/blog/174173</a><br>5.<a href="http://0opslab.com/2016/01/16/JVM%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">http://0opslab.com/2016/01/16/JVM%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/</a></p>
+</blockquote>
 
       
     </div>
@@ -235,15 +241,20 @@ Quick">
     
 <nav id="article-nav">
   
-    <a href="/2015/11/16/java-jvm/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/11/17/java-jvm-gc/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          java jvm
+          java jvm gc
         
       </div>
     </a>
   
+  
+    <a href="/2015/11/04/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -270,7 +281,7 @@ Quick">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hello-world" data-title="Hello World" data-url="http://yoursite.com/2015/11/04/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="java-jvm" data-title="java jvm" data-url="http://yoursite.com/2015/11/16/java-jvm/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

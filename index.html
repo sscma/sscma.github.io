@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 20px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
+						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 15px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
 					</div>
 				</section>
 				
@@ -182,6 +182,80 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-java-concurrent-lock" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/15/java-concurrent-lock/" class="article-date">
+  	<time datetime="2016-01-15T01:56:11.000Z" itemprop="datePublished">2016-01-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/15/java-concurrent-lock/">java concurrent lock</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Java中的线程同步机制主要有以下几种方式<br>1.volatile变量：轻量级多线程同步机制，不会引起上下文切换和线程调度。仅提供内存可见性保证，不提供原子性。<br>2.CAS原子指令：轻量级多线程同步机制，不会引起上下文切换和线程调度。它同时提供内存可见性和原子化更新保证。<br>3.内部锁和显式锁：重量级多线程同步机制，可能会引起上下文切换和线程调度，它同时提供内存可见性和原子性。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Java中锁类型如下<br>1.Synchronized锁：内部锁，锁的获取和释放不需要自己手动写程序代码，底层的实现是监控Monitor对象，通过MonitorEnter和MonitorExist方式实现。该锁是重量级锁，一个线程获得该锁后，其他所有线程都要等待。<br>2.Lock锁：显示锁，锁的获取和释放需要自己手动写程序代码，一般如下，内部实现通过Java的AQS实现，而AQS的实现依赖于CAS。该锁是轻量级锁，是乐观锁，只有两个线程同时写才会让另一个线程等待，读不需要等待。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	 <span class="comment">//具体业务逻辑</span></span><br><span class="line">	&#125; </span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">	lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>Lock锁相对Synchronized锁有如下好处<br>1.Lock可以按需要加锁与释放锁，便于手动管理<br>2.Lock可以设置超时时间<br>3.Lock锁可以响应中断<br>4.Lock锁一般是乐观锁，Synchronized锁一般是悲观锁</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>现代的多处理器系统大多提供了特殊的指令来管理对共享数据的并发访问，这些指令能实现原子化的读-改-写操作。现代典型的多处理器系统通常支持两种同步原语（机器级别的原子指令）：CAS 和 LL/SC。<br>1.Intel，AMD 和 SPARC 的多处理器系统支持“比较并交换”（compare-and-swap，CAS）指令。<br>2.IBM PowerPC，Alpha AXP，MISP 和 ARM 的多处理器系统支持“加载链接 / 存储条件”（load-linked/store-conditional，LL/SC）指令。<br>3.CAS实际上是利用处理器提供的CMPXCHG指令实现的，而处理器执行CMPXCHG指令是一个原子性操作。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://www.ibm.com/developerworks/cn/java/j-lo-concurrent/index.html" target="_blank" rel="external">http://www.ibm.com/developerworks/cn/java/j-lo-concurrent/index.html</a><br>2.<a href="http://www.cnblogs.com/dolphin0520/p/3920373.html" target="_blank" rel="external">http://www.cnblogs.com/dolphin0520/p/3920373.html</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-redis-queue" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -233,6 +307,10 @@
 <hr>
 <blockquote>
 <p>提醒大家注意使用，这里抢红包需要事先将数据导入，我们当时就是前一天晚上将数据导入到redis中。导入的方式就是将数据库的每条记录转换成json格式存入redis，还要注意领取失败的时候将json记录返还到队列中。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>最后回忆一下当时使用redis queue的压测结果，具体的数据我没有记下来，已经过去挺久的了，当时是使用apache jmeter做压测的，结果是每秒处理接近1000次。</p>
 </blockquote>
 
       
@@ -775,11 +853,11 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java-jvm-gc" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/04/hello-world/" class="article-date">
-  	<time datetime="2015-11-04T03:37:40.540Z" itemprop="datePublished">2015-11-04</time>
+      <a href="/2015/11/17/java-jvm-gc/" class="article-date">
+  	<time datetime="2015-11-17T12:35:11.000Z" itemprop="datePublished">2015-11-17</time>
 </a>
     </div>
   
@@ -792,7 +870,7 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/04/hello-world/">Hello World</a>
+      <a class="article-title" href="/2015/11/17/java-jvm-gc/">java jvm gc</a>
     </h1>
   
 
@@ -801,15 +879,29 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <blockquote>
+<p>垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>判定对象为垃圾对象的方法<br>1.引用计数法（Reference Counting），无法解决循环依赖的情况，Java没有用该方法，Python使用该方法<br>2.跟踪法/可达性分析法（Tracing），查找根节点到对象的可达（reachable）路径确定是否删除</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>常用垃圾回收算法<br>1.标记-清除（Mark-Sweep）算法<br>2.标记-整理/压缩（Mark-Compact）算法<br>3.复制（Copying）算法<br>4.分代收集（Generational Collection）算法</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>JDK1.7中的具体垃圾收集器，垃圾回收算法的具体实现<br>1.Serial<br>2.Serial Old<br>3.ParNew<br>4.Parallel Scavenge<br>5.Parallel Old<br>6.CMS(Concurrent-Mark-Sweep)<br>7.G1</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Java中的垃圾回收包含Minor GC，Major GC，Full GC<br>1.Minor GC发生在年轻代，发生比较频繁，速度较快，采用Copying算法<br>2.Major GC发生在年老代，速度较慢，时间一般是Minor GC的10倍，采用Mark-Compact算法<br>3.Full GC不等于Major GC，也不等于Minor GC + Major GC，有时候确实等于Major GC，但也有时候等于Minor GC + Major GC，具体是可以通过参数进行配置</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://blog.csdn.net/zouxinfox/article/details/1594216" target="_blank" rel="external">http://blog.csdn.net/zouxinfox/article/details/1594216</a><br>2.<a href="http://www.cnblogs.com/dolphin0520/p/3783345.html" target="_blank" rel="external">http://www.cnblogs.com/dolphin0520/p/3783345.html</a><br>3.<a href="http://blog.chinaunix.net/uid-540802-id-1746443.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-540802-id-1746443.html</a><br>4.<a href="http://blog.csdn.net/zsuguangh/article/details/6429592" target="_blank" rel="external">http://blog.csdn.net/zsuguangh/article/details/6429592</a><br>5.<a href="http://caoyaojun1988-163-com.iteye.com/blog/1966814" target="_blank" rel="external">http://caoyaojun1988-163-com.iteye.com/blog/1966814</a><br>6.<a href="http://www.cnblogs.com/laoyangHJ/articles/java_gc.html" target="_blank" rel="external">http://www.cnblogs.com/laoyangHJ/articles/java_gc.html</a><br>7.<a href="http://www.cnblogs.com/sunniest/p/4575144.html" target="_blank" rel="external">http://www.cnblogs.com/sunniest/p/4575144.html</a><br>8.<a href="http://blog.jobbole.com/80499/" target="_blank" rel="external">http://blog.jobbole.com/80499/</a></p>
+</blockquote>
 
       
     </div>
@@ -817,6 +909,10 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
       
 
       
@@ -834,6 +930,10 @@ Q：希望这些知识回去自己看看，说不定下家面试还能用得上�
 
 
   
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
