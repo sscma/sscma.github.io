@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 15px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
+						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/big-data/" style="font-size: 10px;">big data</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 15px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/travel/" style="font-size: 10px;">travel</a>
 					</div>
 				</section>
 				
@@ -182,6 +182,245 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-mysql-deadlock" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/30/mysql-deadlock/" class="article-date">
+  	<time datetime="2015-11-30T05:50:12.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/30/mysql-deadlock/">mysql deadlock index</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>mysql的死锁问题估计数据量稍微大了都有可能出现，例如经常出现的问题Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction。很熟悉吧，今天项目中就出现了这个问题，我操作的是库存表，估计搞库存的都会可能碰到库存加减并发的问题，在此不去讨论库存的具体业务逻辑，而是针对mysql的死锁问题做一个总结。</p>
+</blockquote>
+<p>mysql有行锁和表锁区分。在navicate客户端开启两个查询窗口即可模拟操作。下面的测试是以mysql的innodb数据引擎为基础。</p>
+<p>1.测试行锁</p>
+<p>命令行1<br>begin；<br>select * from user where id = 1 for update；</p>
+<p>命令行2<br>（1）update user set username = “test123” where id = 1;<br>（2）update user set username = “test123” where id = 2;</p>
+<p>命令行1没有commit之前，<br>命令行2中的第一条命令无法更新成功，命令行2中的第二条命令可以更新成功</p>
+<p>2.测试表锁</p>
+<p>命令行1<br>begin；<br>select * from user where username = “test” for update;</p>
+<p>命令行2<br>（1）update user set username = “test123” where id = 1;<br>（2）update user set username = “test123” where id = 2;<br>（3）update user set username = “test123” where username = “test”;</p>
+<p>命令1没有commit之前，<br>命令行2中的三条命令无法都更新成功</p>
+<p>3.如果既要行锁但是又要查询条件并不是主键，可以使用如下方法（子查询）<br>begin；<br>select * from user where id = (select id fro user where username = “test”) for update;</p>
+<p>要保证子查询select的结果唯一，如果结果不唯一，则报如下错误<br>mysql&gt; select * from user where id = (select id from user where username = “test”) for update;<br>1242 - Subquery returns more than 1 row</p>
+<p>这时候可以使用in，不过锁住的是整个表<br> begin;<br>select * from user where id in (select id from user where username = “test”) for update;</p>
+<p>同时还有另外一种方法，就是给where 后面的条件加上唯一索引（或者普通索引，但是锁住的可能是多行，mysql查询结果总量大于等于3就不行了，所以最好用唯一索引），如下：</p>
+<p>命令行1<br>begin;<br>select * from inventory_0 where goods_code = ‘001’ and ipwareh_code = ‘HQ0001’ and acwareh_code = ‘HQ0001’ for update;</p>
+<p>命令行2<br>update inventory_0 set inventory_quantity = 13 where id = 1;</p>
+<p>命令行3<br>update inventory_0 set inventory_quantity = 13 where goods_code = ‘001’ and ipwareh_code = ‘HQ0001’ and acwareh_code = ‘HQ0001’;</p>
+<p>这时候命令行1没哟提交之前，命令行2，命令行3不能执行</p>
+<p>4.默认的update语句也是区分锁表和锁行<br>update user set username = “test1” where id = 1;则锁行,id为主键<br>update user set username = “test1” where username = “test”;则锁表，username 没有索引或者只是普通索引</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-interviewer" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/20/interviewer/" class="article-date">
+  	<time datetime="2015-11-20T03:31:03.000Z" itemprop="datePublished">2015-11-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/20/interviewer/">first be interviewer</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>工作了<span class="number">4</span>年，今天第一次当面试官，从今天开始，打算将一些事情记录下来。
+
+原因很简单，第一次当面试官很不成功。
+</code></pre><blockquote>
+<p>今天在写程序，突然被老大叫去面试一个应届生。顿时感觉手忙脚乱，人事递给我简历，我立马回答说<br>我先上个厕所。回来的时候，我拿着简历，顺便也拿了手机，想想还是别带手机了。就这样，手机摔到 地上了，还好，没摔坏。<br> 在路上边走边看，到了面试的房间，看到了那个应届生。按照自己的面试经验，先让他做个自我简介。<br>什么，94年的，瞬间感觉自己老了。<br>上海某个二本学校的。其实这个学校感觉还可以，因为自己当时差点报了这个学校。<br>接下来是我们的对话</p>
+</blockquote>
+<pre><code>Q：大学学了些什么专业课？
+<span class="keyword">A</span>：C语言，操作系统原理，这学期正在学。
+Q：没有其他课了？
+<span class="keyword">A</span>：记不得了……
+Q：数据结构、组成原理、计算机网络、数据库、编译原理……我一下子说了好多，你有自己动手写过程序吗？
+<span class="keyword">A</span>:没有
+Q：一点都没写过？
+<span class="keyword">A</span>：我报名了一个java的培训班
+Q：那好啊，给我说说学了些什么？
+<span class="keyword">A</span>：学了SSH框架
+Q：自己有尝试搭建过SSH吗?
+<span class="keyword">A</span>: 没有
+Q：那知道这3个框架都分别干什么吗？
+<span class="keyword">A</span>：不太清楚，当时学的时候还知道，现在忘记了
+Q：其实忘记很正常，尤其是在学校没做过项目，很多知识学了就忘，java你听说过吧？
+<span class="keyword">A</span>：听说过，自己还学了点，不过也没写过什么
+Q:那你把知道说出来，知道多少说多少
+<span class="keyword">A</span>：没太写过，感觉都忘了
+Q：我感觉不知道问什么了，我就看着简历后面的面试题，看了他哪些不会做，接下来就是给他讲解题目
+<span class="keyword">A</span>：聆听中………………
+Q：希望这些知识回去自己看看，说不定下家面试还能用得上，你先等一会
+</code></pre><blockquote>
+<p>我从屋子里走出来了，和老大说了说，其他人都过来问怎么样，怎么样</p>
+<p>结果很遗憾的就是让人事和他说bye，bye了</p>
+<p>回去我感觉挺不好意思的，好几天感觉都挺内疚，不知道自己是不是问的太多了，还是……</p>
+<p>我觉得我好像不太适合当面试官</p>
+</blockquote>
+<h4 id="暂时没有给博客加留言功能，如果要联系，可以通过邮箱，3Q">暂时没有给博客加留言功能，如果要联系，可以通过邮箱，3Q</h4>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/other/">other</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-java-jvm-gc" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/17/java-jvm-gc/" class="article-date">
+  	<time datetime="2015-11-17T12:35:11.000Z" itemprop="datePublished">2015-11-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/17/java-jvm-gc/">java jvm gc</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>判定对象为垃圾对象的方法<br>1.引用计数法（Reference Counting），无法解决循环依赖的情况，Java没有用该方法，Python使用该方法<br>2.跟踪法/可达性分析法（Tracing），查找根节点到对象的可达（reachable）路径确定是否删除</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>常用垃圾回收算法<br>1.标记-清除（Mark-Sweep）算法<br>2.标记-整理/压缩（Mark-Compact）算法<br>3.复制（Copying）算法<br>4.分代收集（Generational Collection）算法</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>JDK1.7中的具体垃圾收集器，垃圾回收算法的具体实现<br>1.Serial<br>2.Serial Old<br>3.ParNew<br>4.Parallel Scavenge<br>5.Parallel Old<br>6.CMS(Concurrent-Mark-Sweep)<br>7.G1</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Java中的垃圾回收包含Minor GC，Major GC，Full GC<br>1.Minor GC发生在年轻代，发生比较频繁，速度较快，采用Copying算法<br>2.Major GC发生在年老代，速度较慢，时间一般是Minor GC的10倍，采用Mark-Compact算法<br>3.Full GC不等于Major GC，也不等于Minor GC + Major GC，有时候确实等于Major GC，但也有时候等于Minor GC + Major GC，具体是可以通过参数进行配置，可以通过-XX:+PrintGC 输出GC日志以及-XX:+PrintGCDetails 输出GC的详细日志</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://blog.csdn.net/zouxinfox/article/details/1594216" target="_blank" rel="external">http://blog.csdn.net/zouxinfox/article/details/1594216</a><br>2.<a href="http://www.cnblogs.com/dolphin0520/p/3783345.html" target="_blank" rel="external">http://www.cnblogs.com/dolphin0520/p/3783345.html</a><br>3.<a href="http://blog.chinaunix.net/uid-540802-id-1746443.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-540802-id-1746443.html</a><br>4.<a href="http://blog.csdn.net/zsuguangh/article/details/6429592" target="_blank" rel="external">http://blog.csdn.net/zsuguangh/article/details/6429592</a><br>5.<a href="http://caoyaojun1988-163-com.iteye.com/blog/1966814" target="_blank" rel="external">http://caoyaojun1988-163-com.iteye.com/blog/1966814</a><br>6.<a href="http://www.cnblogs.com/laoyangHJ/articles/java_gc.html" target="_blank" rel="external">http://www.cnblogs.com/laoyangHJ/articles/java_gc.html</a><br>7.<a href="http://www.cnblogs.com/sunniest/p/4575144.html" target="_blank" rel="external">http://www.cnblogs.com/sunniest/p/4575144.html</a><br>8.<a href="http://blog.jobbole.com/80499/" target="_blank" rel="external">http://blog.jobbole.com/80499/</a><br>9.<a href="http://blog.csdn.net/huangzhaoyang2009/article/details/11860757" target="_blank" rel="external">http://blog.csdn.net/huangzhaoyang2009/article/details/11860757</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-java-jvm" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -233,65 +472,6 @@
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 	</div>
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/04/hello-world/" class="article-date">
-  	<time datetime="2015-11-04T03:37:40.540Z" itemprop="datePublished">2015-11-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/04/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
       
 
       

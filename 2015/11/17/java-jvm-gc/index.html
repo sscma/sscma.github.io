@@ -27,7 +27,7 @@
 
 
 常用垃圾回收算法1.标记-清除（M">
-<meta property="og:updated_time" content="2016-01-21T08:08:04.080Z">
+<meta property="og:updated_time" content="2016-02-26T08:48:04.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java jvm gc">
 <meta name="twitter:description" content="垃圾回收（GC，Garbage Collection）的用途，释放没有被引用的对象，整理内存碎片。
@@ -133,7 +133,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 15px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
+						<a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/atomikos/" style="font-size: 10px;">atomikos</a> <a href="/tags/big-data/" style="font-size: 10px;">big data</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jdbctemplate/" style="font-size: 10px;">jdbctemplate</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/other/" style="font-size: 15px;">other</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/travel/" style="font-size: 10px;">travel</a>
 					</div>
 				</section>
 				
@@ -259,11 +259,11 @@
 </blockquote>
 <hr>
 <blockquote>
-<p>Java中的垃圾回收包含Minor GC，Major GC，Full GC<br>1.Minor GC发生在年轻代，发生比较频繁，速度较快，采用Copying算法<br>2.Major GC发生在年老代，速度较慢，时间一般是Minor GC的10倍，采用Mark-Compact算法<br>3.Full GC不等于Major GC，也不等于Minor GC + Major GC，有时候确实等于Major GC，但也有时候等于Minor GC + Major GC，具体是可以通过参数进行配置</p>
+<p>Java中的垃圾回收包含Minor GC，Major GC，Full GC<br>1.Minor GC发生在年轻代，发生比较频繁，速度较快，采用Copying算法<br>2.Major GC发生在年老代，速度较慢，时间一般是Minor GC的10倍，采用Mark-Compact算法<br>3.Full GC不等于Major GC，也不等于Minor GC + Major GC，有时候确实等于Major GC，但也有时候等于Minor GC + Major GC，具体是可以通过参数进行配置，可以通过-XX:+PrintGC 输出GC日志以及-XX:+PrintGCDetails 输出GC的详细日志</p>
 </blockquote>
 <hr>
 <blockquote>
-<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://blog.csdn.net/zouxinfox/article/details/1594216" target="_blank" rel="external">http://blog.csdn.net/zouxinfox/article/details/1594216</a><br>2.<a href="http://www.cnblogs.com/dolphin0520/p/3783345.html" target="_blank" rel="external">http://www.cnblogs.com/dolphin0520/p/3783345.html</a><br>3.<a href="http://blog.chinaunix.net/uid-540802-id-1746443.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-540802-id-1746443.html</a><br>4.<a href="http://blog.csdn.net/zsuguangh/article/details/6429592" target="_blank" rel="external">http://blog.csdn.net/zsuguangh/article/details/6429592</a><br>5.<a href="http://caoyaojun1988-163-com.iteye.com/blog/1966814" target="_blank" rel="external">http://caoyaojun1988-163-com.iteye.com/blog/1966814</a><br>6.<a href="http://www.cnblogs.com/laoyangHJ/articles/java_gc.html" target="_blank" rel="external">http://www.cnblogs.com/laoyangHJ/articles/java_gc.html</a><br>7.<a href="http://www.cnblogs.com/sunniest/p/4575144.html" target="_blank" rel="external">http://www.cnblogs.com/sunniest/p/4575144.html</a><br>8.<a href="http://blog.jobbole.com/80499/" target="_blank" rel="external">http://blog.jobbole.com/80499/</a></p>
+<p>暂时只能写这么多，以后再补充，本篇参考了如下blog<br>1.<a href="http://blog.csdn.net/zouxinfox/article/details/1594216" target="_blank" rel="external">http://blog.csdn.net/zouxinfox/article/details/1594216</a><br>2.<a href="http://www.cnblogs.com/dolphin0520/p/3783345.html" target="_blank" rel="external">http://www.cnblogs.com/dolphin0520/p/3783345.html</a><br>3.<a href="http://blog.chinaunix.net/uid-540802-id-1746443.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-540802-id-1746443.html</a><br>4.<a href="http://blog.csdn.net/zsuguangh/article/details/6429592" target="_blank" rel="external">http://blog.csdn.net/zsuguangh/article/details/6429592</a><br>5.<a href="http://caoyaojun1988-163-com.iteye.com/blog/1966814" target="_blank" rel="external">http://caoyaojun1988-163-com.iteye.com/blog/1966814</a><br>6.<a href="http://www.cnblogs.com/laoyangHJ/articles/java_gc.html" target="_blank" rel="external">http://www.cnblogs.com/laoyangHJ/articles/java_gc.html</a><br>7.<a href="http://www.cnblogs.com/sunniest/p/4575144.html" target="_blank" rel="external">http://www.cnblogs.com/sunniest/p/4575144.html</a><br>8.<a href="http://blog.jobbole.com/80499/" target="_blank" rel="external">http://blog.jobbole.com/80499/</a><br>9.<a href="http://blog.csdn.net/huangzhaoyang2009/article/details/11860757" target="_blank" rel="external">http://blog.csdn.net/huangzhaoyang2009/article/details/11860757</a></p>
 </blockquote>
 
       
